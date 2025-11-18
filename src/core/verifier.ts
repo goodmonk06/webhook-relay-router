@@ -3,10 +3,10 @@ import { SignatureVerifier, VerificationResult } from './types';
 import * as crypto from 'crypto';
 
 /**
- * 署名検証なしのベースバーサー
+ * 署名検証なしのベースVerifier
  */
 export class NoopVerifier implements SignatureVerifier {
-  async verify(): Promise<VerificationResult> {
+  async verify(_request: FastifyRequest, _secret: string): Promise<VerificationResult> {
     return { valid: true };
   }
 }

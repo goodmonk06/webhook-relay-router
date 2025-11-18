@@ -2,6 +2,7 @@ import Fastify from 'fastify';
 import { loadConfig, loadEnv } from './config/loader';
 import { WebhookRouter } from './core/router';
 import { WebhookLogger } from './core/logger';
+import { formatError } from './core/errors';
 
 // 環境変数を読み込む
 loadEnv();
@@ -33,6 +34,20 @@ async function start() {
       // 生のボディを保持（署名検証のため）
       disableRequestLogging: false,
       bodyLimit: 1048576, // 1MB
+    });
+
+    // グローバルエラーハンドラー
+    fastify.setErrorHandler((error, request, reply) => {
+      const errorResponse = formatError(error);
+
+      // エラーをログに記録
+      request.log.error({
+        err: error,
+        url: request.url,
+        method: request.method,
+      }, 'Request error');
+
+      reply.code(errorResponse.statusCode).send(errorResponse);
     });
 
     // Webhookロガーを作成

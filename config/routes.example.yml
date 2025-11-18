@@ -1,0 +1,48 @@
+# Webhook Relay Router Configuration
+# このファイルをコピーして routes.yml を作成してください
+
+routes:
+  # Stripe Webhook
+  - provider: stripe
+    path: /webhook/stripe
+    forwardUrl: https://internal.example.com/api/stripe
+    secret: whsec_your_stripe_webhook_secret_here
+    enabled: true
+    description: Stripe payment webhooks
+
+  # GitHub Webhook
+  - provider: github
+    path: /webhook/github
+    forwardUrl: https://internal.example.com/api/github
+    secret: your_github_webhook_secret_here
+    enabled: true
+    description: GitHub repository events
+
+  # Generic Webhook (署名検証なし)
+  - provider: generic
+    path: /webhook/generic
+    forwardUrl: https://internal.example.com/api/generic
+    enabled: true
+    description: Generic webhook without signature verification
+
+# グローバル設定
+settings:
+  # ログ保存設定
+  logging:
+    enabled: true
+    storageType: file # file または database
+    retentionDays: 30
+
+  # 転送設定
+  forwarding:
+    timeout: 10000 # タイムアウト (ms)
+    retryCount: 3 # リトライ回数
+    retryDelay: 1000 # リトライ間隔 (ms)
+
+  # セキュリティ設定
+  security:
+    allowedIps: [] # 空の場合は全てのIPを許可
+    rateLimit:
+      enabled: true
+      max: 100 # 1分あたりの最大リクエスト数
+      window: 60000 # ウィンドウ時間 (ms)

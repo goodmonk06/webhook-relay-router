@@ -1,0 +1,39 @@
+{
+  "name": "webhook-relay-router",
+  "version": "1.0.0",
+  "description": "各種SaaSからのWebhookを一旦受けて、認証・変換・ルーティングして内部サービスへ流す中継サーバ",
+  "main": "dist/server.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write \"src/**/*.ts\""
+  },
+  "keywords": [
+    "webhook",
+    "relay",
+    "gateway",
+    "router"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^4.25.2",
+    "pino": "^8.17.2",
+    "pino-pretty": "^10.3.1",
+    "js-yaml": "^4.1.0",
+    "dotenv": "^16.3.1",
+    "axios": "^1.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@types/js-yaml": "^4.0.9",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1"
+  }
+}

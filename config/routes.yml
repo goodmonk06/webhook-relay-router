@@ -1,0 +1,45 @@
+# Webhook Relay Router Configuration
+# 本番環境用の設定ファイル
+
+routes:
+  # Stripe Webhook
+  - provider: stripe
+    path: /webhook/stripe
+    forwardUrl: http://localhost:4000/api/stripe
+    secret: whsec_test_secret
+    enabled: true
+    description: Stripe payment webhooks
+
+  # GitHub Webhook
+  - provider: github
+    path: /webhook/github
+    forwardUrl: http://localhost:4000/api/github
+    secret: test_secret
+    enabled: true
+    description: GitHub repository events
+
+  # Generic Webhook
+  - provider: generic
+    path: /webhook/generic
+    forwardUrl: http://localhost:4000/api/generic
+    enabled: true
+    description: Generic webhook without signature verification
+
+# グローバル設定
+settings:
+  logging:
+    enabled: true
+    storageType: file
+    retentionDays: 30
+
+  forwarding:
+    timeout: 10000
+    retryCount: 3
+    retryDelay: 1000
+
+  security:
+    allowedIps: []
+    rateLimit:
+      enabled: true
+      max: 100
+      window: 60000

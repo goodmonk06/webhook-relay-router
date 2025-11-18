@@ -18,6 +18,38 @@ routes:
     enabled: true
     description: GitHub repository events
 
+  # Slack Webhook
+  - provider: slack
+    path: /webhook/slack
+    forwardUrl: https://internal.example.com/api/slack
+    secret: your_slack_signing_secret_here
+    enabled: true
+    description: Slack event subscriptions and slash commands
+
+  # Shopify Webhook
+  - provider: shopify
+    path: /webhook/shopify
+    forwardUrl: https://internal.example.com/api/shopify
+    secret: your_shopify_webhook_secret_here
+    enabled: true
+    description: Shopify order, product, and inventory webhooks
+
+  # Twilio Webhook
+  - provider: twilio
+    path: /webhook/twilio
+    forwardUrl: https://internal.example.com/api/twilio
+    secret: your_twilio_auth_token_here
+    enabled: true
+    description: Twilio SMS and call status webhooks
+
+  # SendGrid Webhook
+  - provider: sendgrid
+    path: /webhook/sendgrid
+    forwardUrl: https://internal.example.com/api/sendgrid
+    secret: your_sendgrid_webhook_secret_here
+    enabled: true
+    description: SendGrid email event webhooks
+
   # Generic Webhook (署名検証なし)
   - provider: generic
     path: /webhook/generic

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "各種SaaSからのWebhookを一旦受けて、認証・変換・ルーティングして内部サービスへ流す中継サーバ",
   "main": "dist/server.js",
+  "bin": {
+    "relay-cli": "./dist/cli/index.js"
+  },
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
@@ -13,8 +16,14 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "tsx demo/test-flow.ts",
     "demo:mock": "node demo/mock-server.js",
+    "cli": "tsx src/cli/index.ts",
+    "cli:providers": "npm run cli providers",
+    "cli:validate": "npm run cli validate-config",
+    "cli:stats": "npm run cli stats",
+    "cli:history": "npm run cli history",
     "lint": "eslint src --ext .ts",
-    "format": "prettier --write \"src/**/*.ts\""
+    "format": "prettier --write \"src/**/*.ts\"",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "webhook",
@@ -26,6 +35,7 @@
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.5",
+    "commander": "^14.0.2",
     "dotenv": "^16.3.1",
     "fastify": "^4.25.2",
     "js-yaml": "^4.1.0",
